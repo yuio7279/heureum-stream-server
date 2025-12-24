@@ -1,0 +1,13 @@
+services:
+  heureum-db:
+    image: postgres:15
+    container_name: heureum-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: heureum_db
+      POSTGRES_USER: heureum
+      POSTGRES_PASSWORD: heureum1234!@
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    restart: always
