@@ -12,7 +12,11 @@ public enum ErrorCode {
 
     // 비즈니스 에러 (예시: Member)
     MEMBER_NOT_FOUND(400, "M001", "존재하지 않는 회원입니다."),
-    EMAIL_DUPLICATION(400, "M002", "이미 존재하는 이메일입니다.");
+    EMAIL_DUPLICATION(400, "M002", "이미 존재하는 이메일입니다."),
+
+    INVALID_STREAM_STATE(400, "S001", "올바르지 않은 방송 상태입니다."),
+    STREAM_NOT_FOUND(404,"S002", "방송을 찾을 수 없습니다."),
+    STREAM_NOT_LIVE(400, "S003", "현재 방송중이지 않습니다.");
 
     private final int status;
     private final String code;
