@@ -13,17 +13,44 @@ public final class Stream {
     private final String title;
 
     private StreamStatus status;
-    private Instant createdAt;
+    private final Instant createdAt;
     private Instant startedAt;
     private Instant endedAt;
 
+    /**
+     * 생성용 생성자 (신규 생성)
+     */
     private Stream(StreamId id, StreamKey streamKey, String title) {
+        this(
+                id,
+                streamKey,
+                title,
+                StreamStatus.CREATED,
+                Instant.now(),
+                null,
+                null
+        );
+    }
+
+    /**
+     * 복원용 생성자 (DB 로딩)
+     */
+    private Stream(StreamId id,
+                   StreamKey streamKey,
+                   String title,
+                   StreamStatus status,
+                   Instant createdAt,
+                   Instant startedAt,
+                   Instant endedAt) {
+
         this.id = Objects.requireNonNull(id);
         this.streamKey = Objects.requireNonNull(streamKey);
         this.title = requireTitle(title);
 
-        this.status = StreamStatus.CREATED;
-        this.createdAt = Instant.now();
+        this.status = Objects.requireNonNull(status);
+        this.createdAt = Objects.requireNonNull(createdAt);
+        this.startedAt = startedAt;
+        this.endedAt = endedAt;
     }
 
     public static Stream create(String title) {
@@ -65,15 +92,14 @@ public final class Stream {
         return title.trim();
     }
 
-    public static Stream restore(StreamId id, StreamKey key, String title,
-                                 StreamStatus status, Instant createdAt,
-                                 Instant startedAt, Instant endedAt) {
-        Stream s = new Stream(id, key, title); // 생성자 접근 조정 필요(패키지-프라이빗 등)
-        s.status = status;
-        s.createdAt = createdAt;
-        s.startedAt = startedAt;
-        s.endedAt = endedAt;
-        return s;
+    public static Stream restore(StreamId id,
+                                 StreamKey key,
+                                 String title,
+                                 StreamStatus status,
+                                 Instant createdAt,
+                                 Instant startedAt,
+                                 Instant endedAt) {
+        return new Stream(id, key, title, status, createdAt, startedAt, endedAt);
     }
 
 }
