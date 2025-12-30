@@ -1,6 +1,7 @@
 package org.heureum.api.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.heureum.common.exception.BusinessException;
 import org.heureum.common.exception.ErrorCode;
 import org.heureum.common.exception.ErrorResponse;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -19,6 +21,8 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
         ErrorCode ec = ex.getErrorCode();
+        log.error("BusinessException code={}, msg={}",
+                ex.getErrorCode(), ex.getMessage(), ex);
         return ResponseEntity
                 .status(ec.getStatus())
                 .body(ErrorResponse.of(ec, traceId(), request.getRequestURI()));
