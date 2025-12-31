@@ -1,6 +1,7 @@
 package org.heureum.api.session.infra;
 
 import org.heureum.core.domain.session.StreamSession;
+import org.heureum.core.domain.stream.StreamId;
 import org.heureum.core.repository.session.StreamSessionRepository;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class InMemoryStreamSessionRepository implements StreamSessionRepository 
     }
 
     @Override
-    public List<StreamSession> findByStreamId(String streamId) {
+    public List<StreamSession> findByStreamId(StreamId streamId) {
         List<StreamSession> result = new ArrayList<>();
         for (StreamSession session : sessions.values()) {
             if (session.getStreamId().equals(streamId)) {

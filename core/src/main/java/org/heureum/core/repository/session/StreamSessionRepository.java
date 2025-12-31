@@ -1,6 +1,7 @@
 package org.heureum.core.repository.session;
 
 import org.heureum.core.domain.session.StreamSession;
+import org.heureum.core.domain.stream.StreamId;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,5 +12,5 @@ public interface StreamSessionRepository {
 
     Optional<StreamSession> findById(UUID sessionId);
 
-    List<StreamSession> findByStreamId(String streamId);
+    List<StreamSession> findByStreamId(StreamId streamId);
 }
