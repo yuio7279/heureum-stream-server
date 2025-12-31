@@ -6,8 +6,8 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_DB: heureum_db
-      POSTGRES_USER: heureum
-      POSTGRES_PASSWORD: heureum1234!@
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
     restart: always

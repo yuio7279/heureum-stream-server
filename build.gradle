@@ -1,6 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '3.5.9' apply false
-    id 'io.spring.dependency-management' version '1.1.7'
+    id 'java'
 }
 
 allprojects {
@@ -12,10 +11,7 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'java'
     apply plugin: 'java-library'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
 
     java {
         toolchain {
@@ -24,18 +20,18 @@ subprojects {
     }
 
     dependencies {
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
-        testCompileOnly 'org.projectlombok:lombok'
-        testAnnotationProcessor 'org.projectlombok:lombok'
+        compileOnly 'org.projectlombok:lombok:1.18.34'
+        annotationProcessor 'org.projectlombok:lombok:1.18.34'
 
-        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testCompileOnly 'org.projectlombok:lombok:1.18.34'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.10.2"
+
+        tasks.named('test') {
+            useJUnitPlatform()
+        }
     }
 
-    tasks.named('test') {
-        useJUnitPlatform()
-    }
-    bootJar { enabled = false }
-    jar { enabled = true }
+
 }

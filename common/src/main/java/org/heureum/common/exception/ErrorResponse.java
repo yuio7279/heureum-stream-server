@@ -1,23 +1,18 @@
 package org.heureum.common.exception;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Getter
+import java.time.Instant;
+
 @Builder
-public class ErrorResponse {
+public record ErrorResponse(String code, String errorMessage, String traceId, String path, Instant timestamp) {
 
-    private final int status;
-    private final String code;
-    private final String errorMessage;
-
-    public ErrorResponse of(ErrorCode errorCode) {
+    public static ErrorResponse of(ErrorCode errorCode, String traceId, String path) {
         return ErrorResponse.builder()
-                .status(errorCode.getStatus())
                 .code(errorCode.getCode())
                 .errorMessage(errorCode.getMessage())
+                .traceId(traceId)
+                .path(path)
                 .build();
     }
 }
