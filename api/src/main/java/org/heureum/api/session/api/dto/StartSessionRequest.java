@@ -1,4 +1,4 @@
-package org.heureum.api.stream;
+package org.heureum.api.session.api.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

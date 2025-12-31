@@ -1,6 +1,6 @@
-package org.heureum.api.stream;
+package org.heureum.api.session.api.dto;
 
-import org.heureum.core.stream.StreamSessionStatus;
+import org.heureum.core.domain.session.StreamSessionStatus;
 
 import java.time.Instant;
 import java.util.UUID;

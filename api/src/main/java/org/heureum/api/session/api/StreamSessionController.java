@@ -1,8 +1,12 @@
-package org.heureum.api.stream;
+package org.heureum.api.session.api;
 
 import jakarta.validation.Valid;
-import org.heureum.core.stream.StreamSession;
-import org.heureum.core.stream.StreamSessionService;
+import org.heureum.api.session.api.dto.ActiveSessionsResponse;
+import org.heureum.api.session.api.dto.SessionStatusResponse;
+import org.heureum.api.session.api.dto.StartSessionRequest;
+import org.heureum.api.session.api.dto.StartSessionResponse;
+import org.heureum.core.domain.session.StreamSession;
+import org.heureum.core.service.session.StreamSessionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

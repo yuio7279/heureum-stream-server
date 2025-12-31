@@ -1,20 +1,21 @@
-package org.heureum.core.stream;
+package org.heureum.core.service.session;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.heureum.common.time.TimeProvider;
+import org.heureum.core.domain.session.StreamSession;
+import org.heureum.core.domain.session.StreamSessionStatus;
+import org.heureum.core.repository.session.StreamSessionRepository;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class StreamSessionService {
-    private final StreamSessionRepository repository;
-    private final TimeProvider timeProvider;
-
-    public StreamSessionService(StreamSessionRepository repository, TimeProvider timeProvider) {
-        this.repository = Objects.requireNonNull(repository, "repository");
-        this.timeProvider = Objects.requireNonNull(timeProvider, "timeProvider");
-    }
+    private final @NonNull StreamSessionRepository repository;
+    private final @NonNull TimeProvider timeProvider;
 
     public StreamSession startSession(String streamId, String userId) {
         validateId(streamId, "streamId");

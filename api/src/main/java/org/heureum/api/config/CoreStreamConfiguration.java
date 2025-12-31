@@ -1,10 +1,10 @@
 package org.heureum.api.config;
 
+import org.heureum.api.session.infra.InMemoryStreamSessionRepository;
 import org.heureum.common.time.SystemTimeProvider;
 import org.heureum.common.time.TimeProvider;
-import org.heureum.core.stream.InMemoryStreamSessionRepository;
-import org.heureum.core.stream.StreamSessionRepository;
-import org.heureum.core.stream.StreamSessionService;
+import org.heureum.core.repository.session.StreamSessionRepository;
+import org.heureum.core.service.session.StreamSessionService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

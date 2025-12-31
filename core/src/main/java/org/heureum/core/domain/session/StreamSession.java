@@ -1,9 +1,12 @@
-package org.heureum.core.stream;
+package org.heureum.core.domain.session;
+
+import lombok.Getter;
 
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
+@Getter
 public final class StreamSession {
     private final UUID sessionId;
     private final String streamId;
@@ -19,30 +22,6 @@ public final class StreamSession {
         this.startedAt = Objects.requireNonNull(startedAt, "startedAt");
         this.lastHeartbeatAt = startedAt;
         this.status = StreamSessionStatus.ACTIVE;
-    }
-
-    public UUID getSessionId() {
-        return sessionId;
-    }
-
-    public String getStreamId() {
-        return streamId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public Instant getStartedAt() {
-        return startedAt;
-    }
-
-    public Instant getLastHeartbeatAt() {
-        return lastHeartbeatAt;
-    }
-
-    public StreamSessionStatus getStatus() {
-        return status;
     }
 
     public void heartbeat(Instant heartbeatAt) {

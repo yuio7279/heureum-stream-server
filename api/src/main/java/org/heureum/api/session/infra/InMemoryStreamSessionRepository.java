@@ -1,4 +1,7 @@
-package org.heureum.core.stream;
+package org.heureum.api.session.infra;
+
+import org.heureum.core.domain.session.StreamSession;
+import org.heureum.core.repository.session.StreamSessionRepository;
 
 import java.util.ArrayList;
 import java.util.List;
