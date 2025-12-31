@@ -37,8 +37,8 @@ public class StreamSessionController {
         StreamSession session = sessionService.startSession(streamId, request.userId());
         return new StartSessionResponse(
                 session.getSessionId(),
-                session.getStreamId(),
-                session.getUserId(),
+                session.getStreamId().value(),
+                session.getUserId().value(),
                 session.getStartedAt()
         );
     }

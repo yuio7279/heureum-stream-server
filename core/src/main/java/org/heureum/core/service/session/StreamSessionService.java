@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.heureum.common.time.TimeProvider;
 import org.heureum.core.domain.session.StreamSession;
 import org.heureum.core.domain.session.StreamSessionStatus;
+import org.heureum.core.domain.stream.StreamId;
+import org.heureum.core.domain.user.UserId;
 import org.heureum.core.repository.session.StreamSessionRepository;
 
 import java.time.Instant;
@@ -18,10 +20,10 @@ public class StreamSessionService {
     private final @NonNull TimeProvider timeProvider;
 
     public StreamSession startSession(String streamId, String userId) {
-        validateId(streamId, "streamId");
-        validateId(userId, "userId");
+        StreamId stream = StreamId.of(requireId(streamId, "streamId"));
+        UserId user = UserId.of(requireId(userId, "userId"));
         Instant now = timeProvider.now();
-        StreamSession session = new StreamSession(UUID.randomUUID(), streamId, userId, now);
+        StreamSession session = new StreamSession(UUID.randomUUID(), stream, user, now);
         return repository.save(session);
     }
 
@@ -38,8 +40,8 @@ public class StreamSessionService {
     }
 
     public int countActiveSessions(String streamId) {
-        validateId(streamId, "streamId");
-        List<StreamSession> sessions = repository.findByStreamId(streamId);
+        StreamId stream = StreamId.of(requireId(streamId, "streamId"));
+        List<StreamSession> sessions = repository.findByStreamId(stream);
         int activeCount = 0;
         for (StreamSession session : sessions) {
             if (session.getStatus() == StreamSessionStatus.ACTIVE) {
@@ -55,9 +57,10 @@ public class StreamSessionService {
                 .orElseThrow(() -> new IllegalArgumentException("Session not found: " + sessionId));
     }
 
-    private void validateId(String value, String name) {
+    private String requireId(String value, String name) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(name + " must not be blank.");
         }
+        return value;
     }
 }
